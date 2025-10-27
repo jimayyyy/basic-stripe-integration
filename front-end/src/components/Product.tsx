@@ -15,7 +15,7 @@ export const Product: FC = () => {
 		},
 		{
 			title: 'Chocolat Noir',
-			description: 'Chocolat riche en cacao, parfait pour les gourmands.',
+			description: 'Chocolat riche en cacao.',
 			image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80',
 		},
 	];
