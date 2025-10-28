@@ -1,10 +1,10 @@
 import type { FC } from 'react';
-import { FloatingCart } from '@/components/Checkout';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCartCount } from '@/store/cart';
 import type { RootState } from '@/store/store';
 import { Product } from '@/components/Product';
 import { openSidebar } from '@/store/sidebar';
+import { FloatingCart } from '@/components/FloatingCart';
 
 export const Home: FC = () => {
 	const totalCount = useSelector((state: RootState) => selectCartCount(state));
