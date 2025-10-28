@@ -27,7 +27,6 @@ const cartSlice = createSlice({
 			} else {
 				state.items.push({ ...action.payload, quantity: 1 });
 			}
-			console.log('Cart items:', JSON.parse(JSON.stringify(state.items)));
 		},
 	},
 });
@@ -35,4 +34,5 @@ const cartSlice = createSlice({
 export const { addToCart } = cartSlice.actions;
 export default cartSlice.reducer;
 
+export const selectCart = (state: RootState) => state.cart.items;
 export const selectCartCount = (state: RootState) => state.cart.items.reduce((total, item) => total + item.quantity, 0);

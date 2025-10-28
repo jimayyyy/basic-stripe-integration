@@ -9,10 +9,12 @@ import {
 } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { Navbar } from '../components/Navbar';
+import { Sidebar } from '@/components/Sidebar';
 
 const Wrapper: FC = () => {
 	return (
 		<>
+			<Sidebar />
 			<Navbar />
 			<div className="pt-18">
 				<Outlet />

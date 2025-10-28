@@ -1,5 +1,6 @@
 import { ShoppingCart } from 'lucide-react';
 import type { FC } from 'react';
+import { Button } from './ui/button';
 
 interface FloatingCartProps {
 	itemCount: number;
@@ -8,7 +9,7 @@ interface FloatingCartProps {
 
 export const FloatingCart: FC<FloatingCartProps> = ({ itemCount, onClick }) => {
 	return (
-		<button
+		<Button
 			onClick={onClick}
 			className="fixed bottom-2 right-2 w-10 h-10 p-0 rounded-full bg-stone-600 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg z-50"
 		>
@@ -19,6 +20,6 @@ export const FloatingCart: FC<FloatingCartProps> = ({ itemCount, onClick }) => {
 					{itemCount}
 				</span>
 			)}
-		</button>
+		</Button>
 	);
 };
