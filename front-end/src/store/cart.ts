@@ -28,6 +28,7 @@ const cartSlice = createSlice({
 				state.items.push({ ...action.payload, quantity: 1 });
 			}
 		},
+		// Even if we can reduce the code using a delta as params (-1 or 1) I prefer this way to have a better code comprehension
 		reduceItem: (state, action: PayloadAction<Pick<CartItem, 'title'>>) => {
 			const existingItem = state.items.find((item) => item.title === action.payload.title);
 			if (existingItem && existingItem.quantity - 1 > 0) {

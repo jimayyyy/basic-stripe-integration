@@ -1,7 +1,6 @@
 import type { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '@/store/cart';
 import { Button } from './ui/button';
+import { useCartHook } from '@/hooks/useCartHook';
 
 type CardProps = {
 	image: string;
@@ -10,10 +9,7 @@ type CardProps = {
 };
 
 export const Card: FC<CardProps> = ({ image, title, description }) => {
-	const dispatch = useDispatch();
-	const handleAdd = () => {
-		dispatch(addToCart({ title, description, image }));
-	};
+	const { addToCart } = useCartHook();
 
 	return (
 		<div className="rounded-xl overflow-hidden shadow-lg bg-white w-[300px] flex flex-col text-start">
@@ -24,7 +20,7 @@ export const Card: FC<CardProps> = ({ image, title, description }) => {
 				<div className="flex justify-between items-center mt-2">
 					<Button
 						className="text-white px-2 text-xl bg-stone-500 hover:bg-stone-950 ease-out"
-						onClick={() => handleAdd()}
+						onClick={() => addToCart({ title, description, image })}
 					>
 						Add to cart
 					</Button>
