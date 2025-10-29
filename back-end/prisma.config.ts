@@ -7,6 +7,7 @@ export default defineConfig({
 	schema: './prisma/',
 	migrations: {
 		path: 'prisma/migrations',
+		seed: 'ts-node --transpile-only ./prisma/seed.ts',
 	},
 	// engine: 'classic',
 	datasource: {
