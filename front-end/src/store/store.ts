@@ -1,12 +1,14 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import cartReducer from './cart';
 import sidebarReducer from './sidebar';
+import productsReduce from './products';
 
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({
 	cart: cartReducer,
+	products: productsReduce,
 	sidebar: sidebarReducer,
 });
 
