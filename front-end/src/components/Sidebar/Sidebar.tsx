@@ -6,13 +6,14 @@ import clsx from 'clsx';
 import { closeSidebar, isSidebarOpen } from '@/store/sidebar';
 import { Button } from '../ui/button';
 import { SidebarCard } from './components/SidebarCard';
+import { useNavigate } from 'react-router-dom';
 
 export const Sidebar: FC = () => {
 	const products = useSelector(selectCart);
 	const isOpen = useSelector(isSidebarOpen);
 
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
 	const onClose = () => dispatch(closeSidebar());
 
 	useEffect(() => {
@@ -45,7 +46,7 @@ export const Sidebar: FC = () => {
 			>
 				<div className="w-full min-h-15 bg-stone-500 flex items-center justify-center relative">
 					<span style={{ fontFamily: 'lobster' }} className="text-4xl drop-shadow-md">
-						Checkout
+						Mon panier
 					</span>
 
 					<Button variant="ghost" className="absolute right-3 text-white hover:bg-stone-700" onClick={() => onClose()}>
@@ -60,7 +61,15 @@ export const Sidebar: FC = () => {
 				</div>
 
 				<div className="w-full min-h-15 bg-stone-500 mt-auto   flex items-center justify-center relative">
-					<div className="text-white font-semibold text-lg">Payment </div>
+					<Button
+						className="text-lg font-semibold"
+						onClick={() => {
+							navigate('/checkout');
+							onClose();
+						}}
+					>
+						Passer au paiement
+					</Button>
 				</div>
 			</div>
 		</>
