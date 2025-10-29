@@ -12,11 +12,11 @@ export const Checkout: FC = () => {
 				<h2 className="text-xl font-bold mb-4">Résumé de la commande</h2>
 
 				{products.map((product) => (
-					<div key={product.title} className="flex justify-between items-center border-b border-gray-700 pb-2 mb-2">
+					<div key={product.name} className="flex justify-between items-center border-b border-gray-700 pb-2 mb-2">
 						<div className="flex flex-row gap-2 items-center">
-							<img src={product.image} alt={product.title} className="min-w-16 h-16 object-cover rounded-lg" />
+							<img src={product.image} alt={product.name} className="min-w-16 h-16 object-cover rounded-lg" />
 							<div className="flex flex-col justify-start items-start">
-								<span className="font-medium overflow-hidden">{product.title}</span>
+								<span className="font-medium overflow-hidden">{product.name}</span>
 								<span className="text-sm text-gray-400">Quantité: {product.quantity}</span>
 							</div>
 						</div>

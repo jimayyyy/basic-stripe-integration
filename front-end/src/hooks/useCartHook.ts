@@ -1,4 +1,4 @@
-import { addItem, addToCart, reduceItem, removeItem, type CartItem } from '@/store/cart';
+import { addItem, addToCart, reduceItem, removeItem, resetCart, type CartItem } from '@/store/cart';
 import { useDispatch } from 'react-redux';
 
 export const useCartHook = () => {
@@ -6,8 +6,9 @@ export const useCartHook = () => {
 
 	return {
 		addToCart: (item: Omit<CartItem, 'quantity'>) => dispatch(addToCart(item)),
-		addItem: (title: string) => dispatch(addItem({ title })),
-		reduceItem: (title: string) => dispatch(reduceItem({ title })),
-		removeItem: (title: string) => dispatch(removeItem({ title })),
+		addItem: (name: string) => dispatch(addItem({ name })),
+		reduceItem: (name: string) => dispatch(reduceItem({ name })),
+		removeItem: (name: string) => dispatch(removeItem({ name })),
+		resetCart: () => dispatch(resetCart()),
 	};
 };

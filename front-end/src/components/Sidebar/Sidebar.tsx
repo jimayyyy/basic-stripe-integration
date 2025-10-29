@@ -7,6 +7,7 @@ import { closeSidebar, isSidebarOpen } from '@/store/sidebar';
 import { Button } from '../ui/button';
 import { SidebarCard } from './components/SidebarCard';
 import { useNavigate } from 'react-router-dom';
+import { useCartHook } from '@/hooks/useCartHook';
 
 export const Sidebar: FC = () => {
 	const products = useSelector(selectCart);
@@ -15,6 +16,7 @@ export const Sidebar: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const onClose = () => dispatch(closeSidebar());
+	const { resetCart } = useCartHook();
 
 	useEffect(() => {
 		if (isOpen) {
@@ -56,13 +58,17 @@ export const Sidebar: FC = () => {
 
 				<div className="flex flex-col items-center gap-4 p-4 overflow-scroll">
 					{products.map((product) => (
-						<SidebarCard title={product.title} quantity={product.quantity} image={product.image} />
+						<SidebarCard name={product.name} quantity={product.quantity} image={product.image} />
 					))}
 				</div>
 
-				<div className="w-full min-h-15 bg-stone-500 mt-auto   flex items-center justify-center relative">
+				<div className="w-full min-h-15 bg-stone-500 mt-auto gap-2 flex items-center justify-center relative">
+					<Button className="text-lg font-semibold" disabled={products.length === 0} onClick={() => resetCart()}>
+						Vider mon panier
+					</Button>
 					<Button
 						className="text-lg font-semibold"
+						disabled={products.length === 0}
 						onClick={() => {
 							navigate('/checkout');
 							onClose();
