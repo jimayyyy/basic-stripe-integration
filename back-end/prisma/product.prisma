@@ -1,0 +1,5 @@
+model Product {
+  id          String  @id @default(uuid())
+  name        String  @unique()
+  description String?
+}
