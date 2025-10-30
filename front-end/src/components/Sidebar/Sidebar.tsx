@@ -51,12 +51,12 @@ export const Sidebar: FC = () => {
 			/>
 			<div
 				className={clsx(
-					'fixed left-0 top-0 h-full bg-neutral-900 z-50 shadow-2xl flex flex-col transform transition-transform duration-300',
+					'fixed left-0 top-0 h-full bg-white z-50 shadow-2xl flex flex-col transform transition-transform duration-300',
 					isOpen ? 'translate-x-0' : '-translate-x-full',
 					'w-full md:w-[400px]',
 				)}
 			>
-				<div className="w-full min-h-15 bg-stone-500 flex items-center justify-center relative">
+				<div className="w-full min-h-15 bg-neutral-800 flex items-center justify-center relative">
 					<span style={{ fontFamily: 'lobster' }} className="text-4xl drop-shadow-md">
 						Mon panier
 					</span>
@@ -77,7 +77,7 @@ export const Sidebar: FC = () => {
 					))}
 				</div>
 
-				<div className="w-full min-h-15 bg-stone-500 mt-auto gap-2 flex items-center justify-center relative">
+				<div className="w-full min-h-15 bg-neutral-800 mt-auto gap-2 flex items-center justify-center relative">
 					<Button className="text-lg font-semibold" disabled={cart.length === 0} onClick={() => resetCart()}>
 						Vider
 						<ShoppingCart />
