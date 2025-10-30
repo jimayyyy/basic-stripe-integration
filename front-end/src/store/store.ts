@@ -1,14 +1,14 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import cartReducer from './cart';
 import sidebarReducer from './sidebar';
-import productsReduce from './products';
 
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { productsApi } from '@/api/productsApi';
 
 const rootReducer = combineReducers({
 	cart: cartReducer,
-	products: productsReduce,
+	[productsApi.reducerPath]: productsApi.reducer,
 	sidebar: sidebarReducer,
 });
 
@@ -22,6 +22,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
 	reducer: persistedReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}).concat(productsApi.middleware),
 });
 
 export const persistor = persistStore(store);

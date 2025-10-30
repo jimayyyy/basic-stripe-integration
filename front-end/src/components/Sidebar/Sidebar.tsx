@@ -8,12 +8,12 @@ import { Button } from '../ui/button';
 import { SidebarCard } from './components/SidebarCard';
 import { useNavigate } from 'react-router-dom';
 import { useCartHook } from '@/hooks/useCartHook';
-import { useProductsHook } from '@/hooks/useProductsHook';
+import { useFetchProductsQuery } from '@/api/productsApi';
 
 export const Sidebar: FC = () => {
 	const cart = useSelector(selectCart);
 	const isOpen = useSelector(isSidebarOpen);
-	const { products } = useProductsHook();
+	const { data: products, isLoading, error } = useFetchProductsQuery();
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -31,6 +31,14 @@ export const Sidebar: FC = () => {
 			document.body.style.overflow = '';
 		};
 	}, [isOpen]);
+
+	if (isLoading) {
+		return <div>Loading products...</div>;
+	}
+
+	if (error || !products) {
+		return <div>Error loading products.</div>;
+	}
 
 	return (
 		<>

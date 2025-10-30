@@ -1,5 +1,5 @@
+import { useFetchProductsQuery } from '@/api/productsApi';
 import { Button } from '@/components/ui/button';
-import { useProductsHook } from '@/hooks/useProductsHook';
 import { selectCart } from '@/store/cart';
 import priceToDecimal from '@/utils/priceToDecimal';
 import type { FC } from 'react';
@@ -7,7 +7,15 @@ import { useSelector } from 'react-redux';
 
 export const Checkout: FC = () => {
 	const cart = useSelector(selectCart);
-	const { products } = useProductsHook();
+	const { data: products, isLoading, error } = useFetchProductsQuery();
+
+	if (isLoading) {
+		return <div>Loading products...</div>;
+	}
+
+	if (error || !products) {
+		return <div>Error loading products.</div>;
+	}
 
 	return (
 		<div className="flex w-full flex-row gap-4 justify-center">
