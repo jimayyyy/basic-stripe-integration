@@ -1,6 +1,7 @@
 import { ShoppingCart } from 'lucide-react';
 import type { FC } from 'react';
 import { Button } from './ui/button';
+import { Badge } from './ui/badge';
 
 interface FloatingCartProps {
 	itemCount: number;
@@ -11,20 +12,27 @@ export const FloatingCart: FC<FloatingCartProps> = ({ itemCount, onClick }) => {
 	return (
 		<Button
 			onClick={onClick}
-			className="fixed bottom-2 right-2 w-10 h-10 p-0 rounded-full bg-stone-500 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg"
+			variant="default"
+			className="fixed bottom-2 right-2 w-10 h-10 p-0 rounded-full text-white flex items-center justify-center shadow-lg"
 		>
 			<ShoppingCart className="w-4 h-4" />
 
 			{itemCount > 0 && (
 				<>
 					{itemCount > 9 ? (
-						<span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+						<Badge
+							className="h-5 min-w-5 rounded-full px-1 tabular-nums absolute -top-1 -right-1"
+							variant="destructive"
+						>
 							9+
-						</span>
+						</Badge>
 					) : (
-						<span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+						<Badge
+							className="h-5 min-w-5 rounded-full px-1 tabular-nums absolute -top-1 -right-1"
+							variant="destructive"
+						>
 							{itemCount}
-						</span>
+						</Badge>
 					)}
 				</>
 			)}
