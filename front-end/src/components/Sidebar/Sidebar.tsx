@@ -60,7 +60,12 @@ export const Sidebar: FC = () => {
 
 				<div className="flex flex-col items-center gap-4 p-4 overflow-scroll">
 					{cart.map((cartItem) => (
-						<SidebarCard name={cartItem.name} quantity={cartItem.quantity} image={products[cartItem.name]?.image} />
+						<SidebarCard
+							key={cartItem.name}
+							name={cartItem.name}
+							quantity={cartItem.quantity}
+							image={products[cartItem.name]?.image}
+						/>
 					))}
 				</div>
 
