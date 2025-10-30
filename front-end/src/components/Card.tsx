@@ -1,14 +1,16 @@
 import type { FC } from 'react';
 import { Button } from './ui/button';
 import { useCartHook } from '@/hooks/useCartHook';
+import priceToDecimal from '@/utils/priceToDecimal';
 
 type CardProps = {
 	image: string;
 	name: string;
 	description: string;
+	price: number;
 };
 
-export const Card: FC<CardProps> = ({ image, name, description }) => {
+export const Card: FC<CardProps> = ({ image, name, description, price }) => {
 	const { addToCart } = useCartHook();
 
 	return (
@@ -19,12 +21,13 @@ export const Card: FC<CardProps> = ({ image, name, description }) => {
 				<p className="text-gray-700 text-base mb-2 flex-1 line-clamp-3">{description}</p>
 				<div className="flex justify-between items-center mt-2">
 					<Button
-						className="text-white px-2 text-xl bg-stone-500 hover:bg-stone-950 ease-out"
-						onClick={() => addToCart({ name, description, image })}
+						variant="default"
+						className="text-white px-2 text-xl font-bold"
+						onClick={() => addToCart({ name, price })}
 					>
 						Add to cart
 					</Button>
-					<div className="text-xl text-black">9.99€</div>
+					<p className="text-xl text-gray-700">{priceToDecimal(price)}€</p>
 				</div>
 			</div>
 		</div>

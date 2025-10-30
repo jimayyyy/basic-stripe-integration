@@ -4,32 +4,38 @@ import type { RootState } from './store';
 export interface ProductItem {
 	name: string;
 	description: string;
-	image?: string;
+	price: number;
+	image: string;
 }
 
 interface ProductsState {
-	products: ProductItem[];
+	products: Record<string, Omit<ProductItem, 'name'>>;
 	loading: boolean;
 	error: string | null;
 }
 
 const initialState: ProductsState = {
-	products: [],
+	products: {},
 	loading: false,
 	error: null,
 };
 
-export const fetchProducts = createAsyncThunk<ProductItem[]>('products/fetchProducts', async () => {
-	const res = await fetch('http://localhost:3000/product');
-	const data = await res.json();
+export const fetchProducts = createAsyncThunk<Record<string, Omit<ProductItem, 'name'>>>(
+	'products/fetchProducts',
+	async () => {
+		const res = await fetch('http://localhost:3000/product');
+		const data = await res.json();
 
-	return data.map((p: ProductItem) => ({
-		name: p.name,
-		description: p.description ?? '',
-		image:
-			'https://lh3.googleusercontent.com/proxy/rnI3_En64EP7f3eLxeUK59zazrOt3DPuEhk8NOfOY_jdK7VbA7ucKFfwPTqdi_wFZCDyEWJ7hDnZq6D-94CPn7Qlp3A8tmPuWmJZf4aO3kbPtBnKfwVtZw', // Ajoute l'URL image si dispo dans l'API
-	}));
-});
+		return data.reduce((acc: Record<string, Omit<ProductItem, 'name'>>, current: ProductItem) => {
+			acc[current.name] = {
+				description: current.description ?? '',
+				image: current.image ?? 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg',
+				price: current.price,
+			};
+			return acc;
+		}, {});
+	},
+);
 
 const productsSlice = createSlice({
 	name: 'products',
@@ -42,7 +48,7 @@ const productsSlice = createSlice({
 				state.loading = true;
 				state.error = null;
 			})
-			.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<ProductItem[]>) => {
+			.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Record<string, Omit<ProductItem, 'name'>>>) => {
 				state.products = action.payload;
 				state.loading = false;
 			})
@@ -54,6 +60,4 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const selectProducts = (state: RootState) => state.products.products;
-export const selectProductsLoading = (state: RootState) => state.products.loading;
-export const selectProductsError = (state: RootState) => state.products.error;
+export const selectProducts = (state: RootState) => state.products;

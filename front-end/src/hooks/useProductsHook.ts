@@ -1,13 +1,11 @@
-import { fetchProducts, selectProducts, selectProductsError, selectProductsLoading } from '@/store/products';
+import { fetchProducts, selectProducts } from '@/store/products';
 import type { AppDispatch } from '@/store/store';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const useProductsHook = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const products = useSelector(selectProducts);
-	const loading = useSelector(selectProductsLoading);
-	const error = useSelector(selectProductsError);
+	const { products, loading, error } = useSelector(selectProducts);
 
 	useEffect(() => {
 		dispatch(fetchProducts());

@@ -1,17 +1,19 @@
 import { selectCart } from '@/store/cart';
 import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { X } from 'lucide-react';
+import { DollarSignIcon, ShoppingCart, X } from 'lucide-react';
 import clsx from 'clsx';
 import { closeSidebar, isSidebarOpen } from '@/store/sidebar';
 import { Button } from '../ui/button';
 import { SidebarCard } from './components/SidebarCard';
 import { useNavigate } from 'react-router-dom';
 import { useCartHook } from '@/hooks/useCartHook';
+import { useProductsHook } from '@/hooks/useProductsHook';
 
 export const Sidebar: FC = () => {
-	const products = useSelector(selectCart);
+	const cart = useSelector(selectCart);
 	const isOpen = useSelector(isSidebarOpen);
+	const { products } = useProductsHook();
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -57,24 +59,26 @@ export const Sidebar: FC = () => {
 				</div>
 
 				<div className="flex flex-col items-center gap-4 p-4 overflow-scroll">
-					{products.map((product) => (
-						<SidebarCard name={product.name} quantity={product.quantity} image={product.image} />
+					{cart.map((cartItem) => (
+						<SidebarCard name={cartItem.name} quantity={cartItem.quantity} image={products[cartItem.name]?.image} />
 					))}
 				</div>
 
 				<div className="w-full min-h-15 bg-stone-500 mt-auto gap-2 flex items-center justify-center relative">
-					<Button className="text-lg font-semibold" disabled={products.length === 0} onClick={() => resetCart()}>
-						Vider mon panier
+					<Button className="text-lg font-semibold" disabled={cart.length === 0} onClick={() => resetCart()}>
+						Vider
+						<ShoppingCart />
 					</Button>
 					<Button
 						className="text-lg font-semibold"
-						disabled={products.length === 0}
+						disabled={cart.length === 0}
 						onClick={() => {
 							navigate('/checkout');
 							onClose();
 						}}
 					>
-						Passer au paiement
+						Paiement
+						<DollarSignIcon />
 					</Button>
 				</div>
 			</div>

@@ -3,8 +3,7 @@ import type { RootState } from './store';
 
 export interface CartItem {
 	name: string;
-	description: string;
-	image: string;
+	price: number;
 	quantity: number;
 }
 
