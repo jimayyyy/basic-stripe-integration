@@ -6,22 +6,27 @@ const products = [
 	{
 		name: 'T-shirt',
 		description: '100% cotton T-shirt, available in several sizes',
+		price: 2000,
 	},
 	{
 		name: 'Mug',
 		description: 'Ceramic coffee mug — 350ml, dishwasher safe',
+		price: 1850,
 	},
 	{
 		name: 'Notebook',
 		description: 'A5 ruled notebook — 100 pages, recycled paper',
+		price: 999,
 	},
 	{
 		name: 'Sticker pack',
 		description: 'Set of 10 assorted stickers',
+		price: 299,
 	},
 	{
 		name: 'Hoodie',
 		description: 'Comfort-fit hoodie with printed logo',
+		price: 2999,
 	},
 ];
 

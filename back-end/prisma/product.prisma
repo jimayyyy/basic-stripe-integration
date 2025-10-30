@@ -2,4 +2,7 @@ model Product {
   id          String  @id @default(uuid())
   name        String  @unique()
   description String?
+  image       String?
+  // in cents
+  price       Int 
 }
