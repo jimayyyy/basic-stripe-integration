@@ -1,8 +1,11 @@
 model Product {
-  id          String  @id @default(uuid())
-  name        String  @unique()
+  id          String      @id @default(uuid())
+  name        String      @unique()
   description String?
   image       String?
   // in cents
-  price       Int 
+  price       Int
+  items       OrderItem[]
+
+  @@map("products")
 }

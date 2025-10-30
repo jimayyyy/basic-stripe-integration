@@ -1,0 +1,27 @@
+model Order {
+  id        String      @id @default(uuid())
+  createdAt DateTime    @default(now())
+  items     OrderItem[]
+  Status    Status      @default(PENDING)
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id String @id @default(uuid())
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  quantity Int @default(1)
+
+  @@map("order_items")
+}
+
+enum Status {
+  PENDING
+  COMPLETED
+}
