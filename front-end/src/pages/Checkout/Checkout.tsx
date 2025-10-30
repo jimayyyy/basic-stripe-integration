@@ -1,13 +1,33 @@
+import { useCreateOrderMutation } from '@/api/orderApi';
 import { useFetchProductsQuery } from '@/api/productsApi';
 import { Button } from '@/components/ui/button';
+import useIsMobile from '@/hooks/useIsMobileHook';
 import { selectCart } from '@/store/cart';
 import priceToDecimal from '@/utils/priceToDecimal';
+import clsx from 'clsx';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 
 export const Checkout: FC = () => {
 	const cart = useSelector(selectCart);
+	const isMobile = useIsMobile();
+
 	const { data: products, isLoading, error } = useFetchProductsQuery();
+	const [createOrder, { data: orderId }] = useCreateOrderMutation();
+
+	const handleOrder = async () => {
+		const body = {
+			products: [
+				{
+					productId: '31f4d7cc-2e1d-4c96-a2b9-5dc8b72b8866',
+					quantity: 10,
+				},
+			],
+		};
+
+		const id = await createOrder(body).unwrap();
+		console.log('OrderID:', id);
+	};
 
 	if (isLoading) {
 		return <div>Loading products...</div>;
@@ -18,8 +38,8 @@ export const Checkout: FC = () => {
 	}
 
 	return (
-		<div className="flex w-full flex-row gap-4 justify-center">
-			<div className="flex min-w-[300px] flex-col p-4 bg-slate-900 rounded-md text-white">
+		<div className="flex w-full flex-row justify-center">
+			<div className={clsx('flex flex-col p-4 bg-slate-900 rounded-md text-white', isMobile ? 'w-full mx-3' : 'w-1/3')}>
 				<h2 className="text-xl font-bold mb-4">Résumé de la commande</h2>
 
 				{cart.map((cartItem) => (
@@ -39,7 +59,7 @@ export const Checkout: FC = () => {
 					</div>
 				))}
 
-				<div className="flex justify-between border-gray-700 font-bold text-lg">
+				<div className="flex justify-between border-gray-700 font-bold text-lg pb-2">
 					<span>Total</span>
 					<span>
 						{priceToDecimal(cart.reduce((total: number, product) => total + product.price * product.quantity, 0))} €
@@ -47,7 +67,9 @@ export const Checkout: FC = () => {
 				</div>
 
 				{/* Need to create command in backend */}
-				<Button className="font-semibold">Commander</Button>
+				<Button className="font-semibold" onClick={() => handleOrder()}>
+					Commander
+				</Button>
 			</div>
 		</div>
 	);

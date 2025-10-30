@@ -5,10 +5,12 @@ import sidebarReducer from './sidebar';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { productsApi } from '@/api/productsApi';
+import { orderApi } from '@/api/orderApi';
 
 const rootReducer = combineReducers({
 	cart: cartReducer,
 	[productsApi.reducerPath]: productsApi.reducer,
+	[orderApi.reducerPath]: orderApi.reducer,
 	sidebar: sidebarReducer,
 });
 
@@ -25,7 +27,7 @@ export const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false,
-		}).concat(productsApi.middleware),
+		}).concat(productsApi.middleware, orderApi.middleware),
 });
 
 export const persistor = persistStore(store);
