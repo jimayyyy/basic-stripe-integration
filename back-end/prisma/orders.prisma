@@ -2,7 +2,7 @@ model Order {
   id        String      @id @default(uuid())
   createdAt DateTime    @default(now())
   items     OrderItem[]
-  Status    Status      @default(PENDING)
+  status    Status      @default(PENDING)
 
   @@map("orders")
 }
@@ -17,6 +17,7 @@ model OrderItem {
   productId String
 
   quantity Int @default(1)
+  total    Int
 
   @@map("order_items")
 }
