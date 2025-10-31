@@ -6,9 +6,11 @@ import { PrismaService } from './prisma/prisma.service';
 import { OrdersService } from './orders/orders.service';
 import { OrdersModule } from './orders/orders.module';
 import { ProductModule } from './product/product.module';
+import { PaymentModule } from './payment/payment.module';
+import { WebhookModule } from './webhook/webhook.module';
 
 @Module({
-	imports: [OrdersModule, ProductModule],
+	imports: [OrdersModule, ProductModule, PaymentModule, WebhookModule],
 	controllers: [AppController],
 	providers: [AppService, ProductService, PrismaService, OrdersService],
 })

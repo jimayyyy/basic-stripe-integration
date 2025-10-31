@@ -6,6 +6,8 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
+	// raw data required by stripe
+	app.use('/webhook/stripe', bodyParser.raw({ type: 'application/json' }));
 	app.use(bodyParser.json());
 
 	app.useGlobalPipes(
