@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface ProductItem {
+	id: string;
 	name: string;
 	description: string;
 	price: number;
 	image: string;
 }
 
-type ProductsResponse = Record<string, Omit<ProductItem, 'name'>>;
+type ProductsResponse = Record<string, Omit<ProductItem, 'id'>>;
 
 export const productsApi = createApi({
 	reducerPath: 'productsApi',
@@ -18,10 +19,11 @@ export const productsApi = createApi({
 			query: () => 'product',
 			transformResponse: (data: ProductItem[]): ProductsResponse => {
 				return data.reduce((acc, current) => {
-					acc[current.name] = {
+					acc[current.id] = {
 						description: current.description ?? '',
 						image: current.image ?? 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg',
 						price: current.price,
+						name: current.name,
 					};
 					return acc;
 				}, {} as ProductsResponse);

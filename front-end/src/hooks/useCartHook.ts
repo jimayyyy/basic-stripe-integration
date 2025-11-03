@@ -6,9 +6,9 @@ export const useCartHook = () => {
 
 	return {
 		addToCart: (item: Omit<CartItem, 'quantity'>) => dispatch(addToCart(item)),
-		addItem: (name: string) => dispatch(addItem({ name })),
-		reduceItem: (name: string) => dispatch(reduceItem({ name })),
-		removeItem: (name: string) => dispatch(removeItem({ name })),
+		addItem: (id: string) => dispatch(addItem({ id })),
+		reduceItem: (id: string) => dispatch(reduceItem({ id })),
+		removeItem: (id: string) => dispatch(removeItem({ id })),
 		resetCart: () => dispatch(resetCart()),
 	};
 };

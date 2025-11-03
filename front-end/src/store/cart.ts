@@ -2,8 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
 
 export interface CartItem {
-	name: string;
-	price: number;
+	id: string;
 	quantity: number;
 }
 
@@ -20,7 +19,7 @@ const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		addToCart: (state, action: PayloadAction<Omit<CartItem, 'quantity'>>) => {
-			const existingItem = state.items.find((item) => item.name === action.payload.name);
+			const existingItem = state.items.find((item) => item.id === action.payload.id);
 			if (existingItem) {
 				existingItem.quantity += 1;
 			} else {
@@ -28,20 +27,20 @@ const cartSlice = createSlice({
 			}
 		},
 		// Even if we can reduce the code using a delta as params (-1 or 1) I prefer this way to have a better code comprehension
-		reduceItem: (state, action: PayloadAction<Pick<CartItem, 'name'>>) => {
-			const existingItem = state.items.find((item) => item.name === action.payload.name);
+		reduceItem: (state, action: PayloadAction<Pick<CartItem, 'id'>>) => {
+			const existingItem = state.items.find((item) => item.id === action.payload.id);
 			if (existingItem && existingItem.quantity - 1 > 0) {
 				existingItem.quantity -= 1;
 			}
 		},
-		addItem: (state, action: PayloadAction<Pick<CartItem, 'name'>>) => {
-			const existingItem = state.items.find((item) => item.name === action.payload.name);
+		addItem: (state, action: PayloadAction<Pick<CartItem, 'id'>>) => {
+			const existingItem = state.items.find((item) => item.id === action.payload.id);
 			if (existingItem) {
 				existingItem.quantity += 1;
 			}
 		},
-		removeItem: (state, action: PayloadAction<Pick<CartItem, 'name'>>) => {
-			state.items = state.items.filter((item) => item.name !== action.payload.name);
+		removeItem: (state, action: PayloadAction<Pick<CartItem, 'id'>>) => {
+			state.items = state.items.filter((item) => item.id !== action.payload.id);
 		},
 		resetCart: (state) => {
 			state.items = [];

@@ -9,12 +9,18 @@ interface OrderPayload {
 	products: Product[];
 }
 
+interface OrderResponses {
+	createdAt: string;
+	id: string;
+	items: [];
+	status: string;
+}
+
 export const orderApi = createApi({
 	reducerPath: 'orderApi',
 	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
 	endpoints: (builder) => ({
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		createOrder: builder.mutation<OrderPayload, any>({
+		createOrder: builder.mutation<OrderResponses, OrderPayload>({
 			// premier param retour et second body
 			query: (body) => ({
 				url: 'orders',

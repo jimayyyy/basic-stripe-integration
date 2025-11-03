@@ -8,9 +8,10 @@ type CardProps = {
 	name: string;
 	description: string;
 	price: number;
+	id: string;
 };
 
-export const Card: FC<CardProps> = ({ image, name, description, price }) => {
+export const Card: FC<CardProps> = ({ image, name, id, description, price }) => {
 	const { addToCart } = useCartHook();
 
 	return (
@@ -20,11 +21,7 @@ export const Card: FC<CardProps> = ({ image, name, description, price }) => {
 				<h2 className="text-xl font-bold mb-2 text-gray-900">{name}</h2>
 				<p className="text-gray-700 text-base mb-2 flex-1 line-clamp-3">{description}</p>
 				<div className="flex justify-between items-center mt-2">
-					<Button
-						variant="default"
-						className="text-white px-2 text-xl font-bold"
-						onClick={() => addToCart({ name, price })}
-					>
+					<Button variant="default" className="text-white px-2 text-xl font-bold" onClick={() => addToCart({ id })}>
 						Add to cart
 					</Button>
 					<p className="text-xl text-gray-700">{priceToDecimal(price)}€</p>

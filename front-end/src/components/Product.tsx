@@ -15,15 +15,17 @@ export const Product: FC = () => {
 
 	return (
 		<div className="flex flex-wrap gap-4 justify-center px-4">
-			{Object.keys(products).map((name, index) => (
+			{Object.keys(products).map((productId) => (
 				<Card
-					key={index}
+					key={productId}
 					image={
-						products[name].image ?? 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'
+						products[productId].image ??
+						'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'
 					}
-					name={name}
-					description={products[name].description}
-					price={products[name].price}
+					name={products[productId].name}
+					description={products[productId].description}
+					price={products[productId].price}
+					id={productId}
 				/>
 			))}
 		</div>
