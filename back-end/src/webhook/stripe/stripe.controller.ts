@@ -14,9 +14,13 @@ export class StripeWebhookController {
 		let event: Stripe.Event;
 
 		try {
-			event = this.stripe.webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET ?? '');
+			event = this.stripe.webhooks.constructEvent(
+				req.body as string | Buffer,
+				signature,
+				process.env.STRIPE_WEBHOOK_SECRET ?? '',
+			);
 		} catch (err) {
-			return res.status(400).send(`Webhook Error: ${err.message}`);
+			return res.status(400).send(`Webhook Error: ${(err as Error).message}`);
 		}
 
 		if (event.type === 'payment_intent.succeeded') {
