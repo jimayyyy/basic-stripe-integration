@@ -6,11 +6,13 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { productsApi } from '@/api/productsApi';
 import { orderApi } from '@/api/orderApi';
+import { paymentApi } from '@/api/paymentApi';
 
 const rootReducer = combineReducers({
 	cart: cartReducer,
 	[productsApi.reducerPath]: productsApi.reducer,
 	[orderApi.reducerPath]: orderApi.reducer,
+	[paymentApi.reducerPath]: paymentApi.reducer,
 	sidebar: sidebarReducer,
 });
 
@@ -27,7 +29,7 @@ export const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false,
-		}).concat(productsApi.middleware, orderApi.middleware),
+		}).concat(productsApi.middleware, orderApi.middleware, paymentApi.middleware),
 });
 
 export const persistor = persistStore(store);
