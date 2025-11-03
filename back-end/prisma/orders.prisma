@@ -2,8 +2,8 @@ model Order {
   id        String      @id @default(uuid())
   createdAt DateTime    @default(now())
   items     OrderItem[]
-  status    Status      @default(PENDING)
-
+  status    OrderStatus      @default(PENDING)
+  total     Int         @default(0)
   @@map("orders")
 }
 
@@ -22,7 +22,7 @@ model OrderItem {
   @@map("order_items")
 }
 
-enum Status {
+enum OrderStatus {
   PENDING
   COMPLETED
 }

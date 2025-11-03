@@ -2,6 +2,7 @@ import { Controller, Post, Req, Res, Headers } from '@nestjs/common';
 import Stripe from 'stripe';
 import { Response, Request } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { OrderStatus } from '@prisma/client';
 
 @Controller('webhook')
 export class StripeWebhookController {
@@ -31,7 +32,7 @@ export class StripeWebhookController {
 			if (orderId) {
 				await this.prisma.order.update({
 					where: { id: orderId },
-					data: { status: 'COMPLETED' },
+					data: { status: OrderStatus.COMPLETED },
 				});
 			}
 		}

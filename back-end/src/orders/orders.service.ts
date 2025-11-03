@@ -14,6 +14,7 @@ export class OrdersService {
 	async createOrder(order: CreatePendingOrderDto): Promise<OrderResponseDto> {
 		try {
 			return await this.prisma.$transaction(async (prisma) => {
+				let total = 0;
 				const internalOrder = await prisma.order.create({ data: {} });
 
 				const products = await prisma.product.findMany({
@@ -27,6 +28,7 @@ export class OrdersService {
 					if (!product) {
 						throw new NotFoundException(`Product with ID ${item.productId} not found`);
 					}
+					total += product.price * item.quantity;
 
 					return {
 						orderId: internalOrder.id,
@@ -36,9 +38,9 @@ export class OrdersService {
 					};
 				});
 				await prisma.orderItem.createMany({ data: orderItemsData });
-
-				return prisma.order.findUniqueOrThrow({
+				return prisma.order.update({
 					where: { id: internalOrder.id },
+					data: { total },
 					include: { items: true },
 				});
 			});

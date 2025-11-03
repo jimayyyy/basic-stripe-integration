@@ -1,21 +1,28 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import Stripe from 'stripe';
+import { CreatePaymentIntentDto } from './dto/create-payment-intent.dto';
 
 @Injectable()
 export class PaymentService {
 	private stripe: Stripe;
 
-	constructor() {
+	constructor(private readonly prisma: PrismaService) {
 		this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '');
 	}
 
-	async createPaymentIntent(amount: number, currency = 'eur') {
+	async createPaymentIntent(createPaymentIntent: CreatePaymentIntentDto) {
 		try {
+			const order = await this.prisma.order.findUniqueOrThrow({
+				where: { id: createPaymentIntent.orderId },
+				select: { total: true },
+			});
+
 			const paymentIntent = await this.stripe.paymentIntents.create({
-				amount: amount * 100,
-				currency,
+				amount: order.total,
+				currency: 'eur',
 				automatic_payment_methods: { enabled: true },
-				metadata: { orderId: '3595e69a-cac1-4d56-98bb-94ddab86b2ce' },
+				metadata: { orderId: createPaymentIntent.orderId },
 			});
 
 			return {
