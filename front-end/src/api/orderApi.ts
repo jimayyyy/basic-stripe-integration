@@ -1,11 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+export enum OrderStatus {
+	PENDING = 'PENDING',
+	COMPLETED = 'COMPLETED',
+}
+
 interface Product {
-	productId: string;
+	id: string;
 	quantity: number;
 }
 
-interface OrderPayload {
+interface CreateOrEditOrderPayload {
 	products: Product[];
 }
 
@@ -13,14 +18,20 @@ interface OrderResponses {
 	createdAt: string;
 	id: string;
 	items: [];
-	status: string;
+	status: OrderStatus;
 }
 
 export const orderApi = createApi({
 	reducerPath: 'orderApi',
 	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
 	endpoints: (builder) => ({
-		createOrder: builder.mutation<OrderResponses, OrderPayload>({
+		// fetch order by id
+		getOrder: builder.query<OrderResponses, string>({
+			query: (id) => `orders/${id}`,
+		}),
+
+		// create a new order
+		createOrder: builder.mutation<OrderResponses, CreateOrEditOrderPayload>({
 			// premier param retour et second body
 			query: (body) => ({
 				url: 'orders',
@@ -28,7 +39,16 @@ export const orderApi = createApi({
 				body,
 			}),
 		}),
+
+		// edit existing order
+		editOrder: builder.mutation<OrderResponses, { id: string; body: CreateOrEditOrderPayload }>({
+			query: ({ id, body }) => ({
+				url: `orders/${id}`,
+				method: 'PUT',
+				body,
+			}),
+		}),
 	}),
 });
 
-export const { useCreateOrderMutation } = orderApi;
+export const { useGetOrderQuery, useCreateOrderMutation, useEditOrderMutation } = orderApi;

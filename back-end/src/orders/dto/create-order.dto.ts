@@ -1,9 +1,9 @@
 import { IsArray, IsUUID, ValidateNested, IsInt, Min, ArrayMinSize } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class CreateOrderProductDto {
+export class OrderProductDto {
 	@IsUUID()
-	readonly productId: string;
+	readonly id: string;
 
 	@IsInt()
 	@Min(1)
@@ -14,6 +14,6 @@ export class CreatePendingOrderDto {
 	@IsArray()
 	@ArrayMinSize(1)
 	@ValidateNested({ each: true })
-	@Type(() => CreateOrderProductDto)
-	readonly products: CreateOrderProductDto[];
+	@Type(() => OrderProductDto)
+	readonly products: OrderProductDto[];
 }

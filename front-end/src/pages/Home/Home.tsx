@@ -1,13 +1,12 @@
 import type { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCartCount } from '@/store/cart';
-import type { RootState } from '@/store/store';
+import { useDispatch } from 'react-redux';
 import { Product } from '@/components/Product';
 import { openSidebar } from '@/store/sidebar';
 import { FloatingCart } from '@/components/FloatingCart';
+import { useCartHook } from '@/hooks/useCartHook';
 
 export const Home: FC = () => {
-	const totalCount = useSelector((state: RootState) => selectCartCount(state));
+	const { totalCount } = useCartHook();
 	const dispatch = useDispatch();
 	const onOpen = () => dispatch(openSidebar());
 

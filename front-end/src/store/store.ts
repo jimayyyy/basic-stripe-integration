@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import cartReducer from './cart';
 import sidebarReducer from './sidebar';
+import orderReducer from './order';
 
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -10,16 +11,18 @@ import { paymentApi } from '@/api/paymentApi';
 
 const rootReducer = combineReducers({
 	cart: cartReducer,
+	sidebar: sidebarReducer,
+	order: orderReducer,
+
 	[productsApi.reducerPath]: productsApi.reducer,
 	[orderApi.reducerPath]: orderApi.reducer,
 	[paymentApi.reducerPath]: paymentApi.reducer,
-	sidebar: sidebarReducer,
 });
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['cart'],
+	whitelist: ['cart', 'order'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

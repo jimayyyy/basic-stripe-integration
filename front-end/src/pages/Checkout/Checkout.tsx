@@ -1,11 +1,12 @@
-import { useCreateOrderMutation } from '@/api/orderApi';
+import { OrderStatus, useCreateOrderMutation, useEditOrderMutation, useGetOrderQuery } from '@/api/orderApi';
 import { useFetchProductsQuery } from '@/api/productsApi';
 import { Button } from '@/components/ui/button';
 import useIsMobile from '@/hooks/useIsMobileHook';
+import { useOrderHook } from '@/hooks/useOrderHook';
 import { selectCart } from '@/store/cart';
 import priceToDecimal from '@/utils/priceToDecimal';
 import clsx from 'clsx';
-import type { FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,17 +15,50 @@ export const Checkout: FC = () => {
 	const isMobile = useIsMobile();
 	const navigate = useNavigate();
 
+	const { orderId, setOrderId } = useOrderHook();
+
+	const {
+		data: order,
+		isError: isOrderError,
+		isSuccess: isOrderSuccess,
+	} = useGetOrderQuery(orderId!, {
+		skip: !orderId,
+	});
+
 	const { data: products, isLoading, error } = useFetchProductsQuery();
 	const [createOrder] = useCreateOrderMutation();
+	const [editOrder] = useEditOrderMutation();
 
 	const handleOrder = async () => {
-		const order = await createOrder({
-			products: cart.map((item) => {
-				return { productId: item.id, quantity: item.quantity };
-			}),
-		}).unwrap();
+		const products = cart.map((item) => {
+			return { id: item.id, quantity: item.quantity };
+		});
+		const order = !orderId
+			? await createOrder({ products }).unwrap()
+			: await editOrder({ id: orderId, body: { products } }).unwrap();
+
+		setOrderId(order.id);
 		navigate(`/payment/${order.id}`);
 	};
+
+	// handle order state changes
+	useEffect(() => {
+		if (!orderId) return;
+
+		if (isOrderError) {
+			console.log('is Error');
+			setOrderId('');
+			return;
+		}
+
+		if (isOrderSuccess && order) {
+			if (order.status === OrderStatus.COMPLETED) {
+				setOrderId('');
+			} else {
+				console.log('use the same order id');
+			}
+		}
+	}, [isOrderError, isOrderSuccess, order, orderId, setOrderId]);
 
 	if (isLoading) {
 		return <div>Loading products...</div>;
