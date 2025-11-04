@@ -61,7 +61,7 @@ export const Sidebar: FC = () => {
 						Mon panier
 					</span>
 
-					<Button variant="ghost" className="absolute right-3 text-white hover:bg-stone-700" onClick={() => onClose()}>
+					<Button variant="default" className="absolute right-3 text-white" onClick={() => onClose()}>
 						<X />
 					</Button>
 				</div>
