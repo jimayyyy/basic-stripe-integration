@@ -23,7 +23,9 @@ export const ProductCard: FC<ProductCardProps> = ({ image, name, id, description
 
 			<CardContent className="flex-1">
 				<CardTitle className="text-xl">{name}</CardTitle>
-				<CardDescription className="line-clamp-2 text-muted-foreground">{description}</CardDescription>
+				<CardDescription className="text-muted-foreground text-md line-clamp-2 leading-5 min-h-10 mb-3">
+					{description}
+				</CardDescription>
 			</CardContent>
 
 			<CardFooter className="w-full justify-between">
