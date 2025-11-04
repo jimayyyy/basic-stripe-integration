@@ -57,7 +57,7 @@ export const Checkout: FC = () => {
 				<span>{priceToDecimal(totalPrice)}€</span>
 			</div>
 
-			<Button className="font-semibold w-full mt-3" variant="secondary" onClick={handleOrder}>
+			<Button className="font-semibold w-full mt-3" variant="secondary" onClick={() => handleOrder()}>
 				Commander
 			</Button>
 		</SummaryLayout>

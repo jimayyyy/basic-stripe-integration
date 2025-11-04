@@ -57,7 +57,7 @@ export const Payment: FC = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={(e) => handleSubmit(e)}>
 			<SummaryLayout title="Finalisation de la commande">
 				<div className="border border-white px-3 py-2 rounded-lg my-2">
 					<CardElement
