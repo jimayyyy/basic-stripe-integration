@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { useCartHook } from '@/hooks/useCartHook';
 import priceToDecimal from '@/utils/priceToDecimal';
 
-type CardProps = {
+type ProductCardProps = {
 	image: string;
 	name: string;
 	description: string;
@@ -11,7 +11,7 @@ type CardProps = {
 	id: string;
 };
 
-export const Card: FC<CardProps> = ({ image, name, id, description, price }) => {
+export const ProductCard: FC<ProductCardProps> = ({ image, name, id, description, price }) => {
 	const { addToCart } = useCartHook();
 
 	return (

@@ -1,5 +1,5 @@
 import { useFetchProductsQuery } from '@/api/productsApi';
-import { Card } from './Card';
+import { ProductCard } from './ProductCard';
 import type { FC } from 'react';
 
 export const Product: FC = () => {
@@ -16,7 +16,7 @@ export const Product: FC = () => {
 	return (
 		<div className="flex flex-wrap gap-4 justify-center px-4">
 			{Object.keys(products).map((productId) => (
-				<Card
+				<ProductCard
 					key={productId}
 					image={
 						products[productId].image ??
