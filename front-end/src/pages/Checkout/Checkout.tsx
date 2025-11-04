@@ -2,17 +2,16 @@ import { OrderStatus, useCreateOrderMutation, useEditOrderMutation, useGetOrderQ
 import { useFetchProductsQuery } from '@/api/productsApi';
 import { Summary } from '@/components/Summary';
 import { Button } from '@/components/ui/button';
+import { useCartHook } from '@/hooks/useCartHook';
 import useIsMobile from '@/hooks/useIsMobileHook';
 import { useOrderHook } from '@/hooks/useOrderHook';
-import { selectCart } from '@/store/cart';
 import priceToDecimal from '@/utils/priceToDecimal';
 import clsx from 'clsx';
 import { useEffect, type FC } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const Checkout: FC = () => {
-	const cart = useSelector(selectCart);
+	const { cart, totalPrice } = useCartHook();
 	const isMobile = useIsMobile();
 	const navigate = useNavigate();
 
@@ -47,7 +46,6 @@ export const Checkout: FC = () => {
 		if (!orderId) return;
 
 		if (isOrderError) {
-			console.log('is Error');
 			setOrderId('');
 			return;
 		}
@@ -80,12 +78,7 @@ export const Checkout: FC = () => {
 
 				<div className="flex justify-between border-gray-700 font-bold text-lg pb-2">
 					<span>Total</span>
-					<span>
-						{priceToDecimal(
-							cart.reduce((total: number, product) => total + products[product.id].price * product.quantity, 0),
-						)}
-						€
-					</span>
+					<span>{priceToDecimal(totalPrice)}€</span>
 				</div>
 
 				<Button className="font-semibold" variant="secondary" onClick={() => handleOrder()}>

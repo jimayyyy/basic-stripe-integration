@@ -1,5 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
+import { productsApi } from '@/api/productsApi';
 
 export interface CartItem {
 	id: string;
@@ -53,3 +54,15 @@ export default cartSlice.reducer;
 
 export const selectCart = (state: RootState) => state.cart.items;
 export const selectCartCount = (state: RootState) => state.cart.items.reduce((total, item) => total + item.quantity, 0);
+
+export const selectCartTotal = createSelector(
+	[selectCart, productsApi.endpoints.fetchProducts.select()],
+	(cartItems, productsQuery) => {
+		const products = productsQuery?.data ?? {};
+
+		return cartItems.reduce((sum, item) => {
+			const product = products[item.id];
+			return sum + (product?.price ?? 0) * item.quantity;
+		}, 0);
+	},
+);
