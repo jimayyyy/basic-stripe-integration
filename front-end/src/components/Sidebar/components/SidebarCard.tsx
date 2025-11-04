@@ -17,7 +17,7 @@ export const SidebarCard: FC<SidebarCardProps> = ({ id, name, quantity, image })
 		<>
 			<div className="w-full max-w-md bg-neutral-800 border border-gray-200 rounded-xl shadow-sm p-2 flex items-center gap-2 hover:shadow-md transition-shadow relative">
 				<Button
-					className="absolute -top-3 -left-3 bg-red-500 rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-700"
+					className="absolute -top-3 -left-3 bg-red-600 rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-700"
 					onClick={() => removeItem(id)}
 				>
 					<X className="text-white" />

@@ -76,19 +76,18 @@ export const Checkout: FC = () => {
 			>
 				<h2 className="text-xl font-bold mb-4">Résumé de la commande</h2>
 
-				<Summary />
+				<Summary editable={true} />
 
 				<div className="flex justify-between border-gray-700 font-bold text-lg pb-2">
 					<span>Total</span>
 					<span>
 						{priceToDecimal(
 							cart.reduce((total: number, product) => total + products[product.id].price * product.quantity, 0),
-						)}{' '}
+						)}
 						€
 					</span>
 				</div>
 
-				{/* Need to create command in backend */}
 				<Button className="font-semibold" variant="secondary" onClick={() => handleOrder()}>
 					Commander
 				</Button>
