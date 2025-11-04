@@ -16,7 +16,7 @@ export const Payment: FC = () => {
 	const [loading, setLoading] = useState(false);
 
 	const [createIntent] = useCreatePaymentIntentMutation();
-	const { totalPrice } = useCartHook();
+	const { totalPrice, resetCart } = useCartHook();
 	const { setOrderId } = useOrderHook();
 
 	const { id } = useParams();
@@ -42,6 +42,7 @@ export const Payment: FC = () => {
 				} else {
 					if (paymentResult?.paymentIntent.status === 'succeeded') {
 						setOrderId('');
+						resetCart();
 						navigate(`/confirmation/${id}`);
 					}
 				}
