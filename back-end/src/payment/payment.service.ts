@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import Stripe from 'stripe';
 import { CreatePaymentIntentDto } from './dto/create-payment-intent.dto';
+import { OrderStatus } from '@prisma/client';
 
 @Injectable()
 export class PaymentService {
@@ -15,8 +16,12 @@ export class PaymentService {
 		try {
 			const order = await this.prisma.order.findUniqueOrThrow({
 				where: { id: createPaymentIntent.orderId },
-				select: { total: true },
+				select: { total: true, status: true },
 			});
+
+			if (order.status === OrderStatus.COMPLETED) {
+				throw new InternalServerErrorException('');
+			}
 
 			const paymentIntent = await this.stripe.paymentIntents.create({
 				amount: order.total,
