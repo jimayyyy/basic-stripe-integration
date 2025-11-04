@@ -32,7 +32,6 @@ export const orderApi = createApi({
 
 		// create a new order
 		createOrder: builder.mutation<OrderResponses, CreateOrEditOrderPayload>({
-			// premier param retour et second body
 			query: (body) => ({
 				url: 'orders',
 				method: 'POST',

@@ -78,13 +78,19 @@ export const Sidebar: FC = () => {
 					))}
 				</div>
 
-				<div className="w-full min-h-15 bg-neutral-800 mt-auto gap-2 flex items-center justify-center relative">
-					<Button className="text-lg font-semibold" disabled={cart.length === 0} onClick={() => resetCart()}>
+				<div className="w-full min-h-15 bg-neutral-800 mt-auto gap-2 flex items-center justify-evenly  relative">
+					<Button
+						className="font-semibold"
+						variant="secondary"
+						disabled={cart.length === 0}
+						onClick={() => resetCart()}
+					>
 						Vider
 						<ShoppingCart />
 					</Button>
 					<Button
-						className="text-lg font-semibold"
+						className="font-semibold"
+						variant="secondary"
 						disabled={cart.length === 0}
 						onClick={() => {
 							navigate('/checkout');
