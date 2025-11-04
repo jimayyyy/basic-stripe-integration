@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { Product } from '@/components/Product';
 import { openSidebar } from '@/store/sidebar';
-import { FloatingCart } from '@/components/FloatingCart';
 import { useCartHook } from '@/hooks/useCartHook';
+import { Product } from './components/ProductList/Product';
+import { FloatingCart } from './components/FloatingCart';
 
 export const Home: FC = () => {
 	const { totalCount } = useCartHook();

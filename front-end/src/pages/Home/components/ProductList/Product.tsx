@@ -1,6 +1,6 @@
 import { useFetchProductsQuery } from '@/api/productsApi';
-import { ProductCard } from './ProductCard';
 import type { FC } from 'react';
+import { ProductCard } from './Card/ProductCard';
 
 export const Product: FC = () => {
 	const { data: products, isLoading, error } = useFetchProductsQuery();

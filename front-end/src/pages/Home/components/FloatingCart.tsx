@@ -1,7 +1,7 @@
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { ShoppingCart } from 'lucide-react';
 import type { FC } from 'react';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
 
 interface FloatingCartProps {
 	itemCount: number;
