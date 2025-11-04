@@ -1,5 +1,4 @@
 import { OrderStatus, useCreateOrderMutation, useEditOrderMutation, useGetOrderQuery } from '@/api/orderApi';
-import { useFetchProductsQuery } from '@/api/productsApi';
 import { SummaryLayout } from '@/app/Layout/Summary/Layout';
 import { Button } from '@/components/ui/button';
 import { useCartHook } from '@/hooks/useCartHook';
@@ -22,7 +21,6 @@ export const Checkout: FC = () => {
 		skip: !orderId,
 	});
 
-	const { data: products, isLoading, error } = useFetchProductsQuery();
 	const [createOrder] = useCreateOrderMutation();
 	const [editOrder] = useEditOrderMutation();
 
@@ -47,22 +45,10 @@ export const Checkout: FC = () => {
 			return;
 		}
 
-		if (isOrderSuccess && order) {
-			if (order.status === OrderStatus.COMPLETED) {
-				setOrderId('');
-			} else {
-				console.log('use the same order id');
-			}
+		if (isOrderSuccess && order && order.status === OrderStatus.COMPLETED) {
+			setOrderId('');
 		}
 	}, [isOrderError, isOrderSuccess, order, orderId, setOrderId]);
-
-	if (isLoading) {
-		return <div>Loading products...</div>;
-	}
-
-	if (error || !products) {
-		return <div>Error loading products.</div>;
-	}
 
 	return (
 		<SummaryLayout title="Résumé de la commande" editable={true}>
