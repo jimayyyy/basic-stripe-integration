@@ -14,6 +14,7 @@ import { Checkout } from '@/pages/Checkout/Checkout';
 import { Payment } from '@/pages/Payment/Payment';
 import StripeLayout from './Layout/Stripe/Layout';
 import { Confirmation } from '@/pages/Confirmation/Confirmation';
+import CartLayout from './Layout/Cart/Layout';
 
 const Wrapper: FC = () => {
 	return (
@@ -35,13 +36,17 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route element={<Wrapper />} errorElement={<Error />}>
 			<Route path="/" element={<Home />} />
-			<Route path="/checkout" element={<Checkout />} />
+
+			<Route element={<CartLayout />}>
+				<Route path="/checkout" element={<Checkout />} />
+			</Route>
 
 			<Route element={<StripeLayout />}>
 				<Route path="/payment/:id" element={<Payment />} />
 			</Route>
 
 			<Route path="/confirmation/:id" element={<Confirmation />} />
+
 			<Route path="*" element={<Navigate to="/" replace />} />
 		</Route>,
 	),
