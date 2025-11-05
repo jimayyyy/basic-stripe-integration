@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useCartHook } from '@/hooks/useCartHook';
-import priceToDecimal from '@/utils/priceToDecimal';
+import { priceToDecimal } from '@/utils/priceToDecimal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 

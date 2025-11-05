@@ -1,12 +1,12 @@
 import { useFetchProductsQuery } from '@/api/productsApi';
 import { selectCart, type CartItem } from '@/store/cart';
-import priceToDecimal from '@/utils/priceToDecimal';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { MinusIcon, PlusIcon } from 'lucide-react';
 import { useCartHook } from '@/hooks/useCartHook';
 import useIsMobile from '@/hooks/useIsMobileHook';
 import { Button } from '@/components/ui/button';
+import { priceToDecimal } from '@/utils/priceToDecimal';
 
 interface SummaryProps {
 	editable?: boolean;

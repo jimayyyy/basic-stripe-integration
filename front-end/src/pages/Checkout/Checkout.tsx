@@ -3,7 +3,7 @@ import { SummaryLayout } from '@/app/Layout/Summary/Layout';
 import { Button } from '@/components/ui/button';
 import { useCartHook } from '@/hooks/useCartHook';
 import { useOrderHook } from '@/hooks/useOrderHook';
-import priceToDecimal from '@/utils/priceToDecimal';
+import { priceToDecimal } from '@/utils/priceToDecimal';
 import { useEffect, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
