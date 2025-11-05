@@ -5,10 +5,12 @@ import { useCartHook } from '@/hooks/useCartHook';
 import { useOrderHook } from '@/hooks/useOrderHook';
 import { priceToDecimal } from '@/utils/priceToDecimal';
 import { useEffect, type FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 export const Checkout: FC = () => {
 	const { cart, totalPrice } = useCartHook();
+	const { t } = useTranslation();
 	const navigate = useNavigate();
 
 	const { orderId, setOrderId } = useOrderHook();
@@ -51,7 +53,7 @@ export const Checkout: FC = () => {
 	}, [isOrderError, isOrderSuccess, order, orderId, setOrderId]);
 
 	return (
-		<SummaryLayout title="Résumé de la commande" editable={true}>
+		<SummaryLayout title={t('checkout.summary')} editable={true}>
 			<div className="flex justify-between border-gray-700 font-bold text-lg pb-2 mt-2">
 				<span>Total</span>
 				<span>{priceToDecimal(totalPrice)}€</span>
