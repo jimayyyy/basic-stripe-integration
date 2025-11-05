@@ -2,15 +2,23 @@ import clsx from 'clsx';
 import useIsMobile from '@/hooks/useIsMobileHook';
 import { type FC, type ReactNode } from 'react';
 import { Summary } from './components/SummaryList';
+import type { CartItem } from '@/store/cart';
 
 interface SummaryLayoutProps {
 	title: string;
 	showSummary?: boolean;
 	editable?: boolean;
+	items?: CartItem[];
 	children: ReactNode;
 }
 
-export const SummaryLayout: FC<SummaryLayoutProps> = ({ title, showSummary = true, editable = false, children }) => {
+export const SummaryLayout: FC<SummaryLayoutProps> = ({
+	title,
+	showSummary = true,
+	editable = false,
+	items,
+	children,
+}) => {
 	const isMobile = useIsMobile();
 
 	return (
@@ -20,7 +28,7 @@ export const SummaryLayout: FC<SummaryLayoutProps> = ({ title, showSummary = tru
 			>
 				<h2 className="text-xl font-bold mb-4">{title}</h2>
 
-				{showSummary && <Summary editable={editable} />}
+				{showSummary && <Summary editable={editable} items={items} />}
 
 				{children}
 			</div>

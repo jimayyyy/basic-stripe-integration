@@ -14,10 +14,18 @@ interface CreateOrEditOrderPayload {
 	products: Product[];
 }
 
+export interface OrderItem {
+	id: string;
+	orderId: string;
+	productId: string;
+	quantity: number;
+	total: number;
+}
+
 interface OrderResponses {
 	createdAt: string;
 	id: string;
-	items: [];
+	items: OrderItem[];
 	status: OrderStatus;
 }
 

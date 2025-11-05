@@ -1,5 +1,5 @@
 import { useFetchProductsQuery } from '@/api/productsApi';
-import { selectCart } from '@/store/cart';
+import { selectCart, type CartItem } from '@/store/cart';
 import priceToDecimal from '@/utils/priceToDecimal';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
@@ -10,10 +10,13 @@ import { Button } from '@/components/ui/button';
 
 interface SummaryProps {
 	editable?: boolean;
+	items?: CartItem[];
 }
 
-export const Summary: FC<SummaryProps> = ({ editable = false }) => {
-	const cart = useSelector(selectCart);
+export const Summary: FC<SummaryProps> = ({ editable = false, items }) => {
+	const storeCart = useSelector(selectCart);
+	const cart = items && items.length > 0 ? items : storeCart;
+
 	const isMobile = useIsMobile();
 	const { addItem, reduceItem } = useCartHook();
 
