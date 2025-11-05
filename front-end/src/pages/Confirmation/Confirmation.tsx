@@ -1,7 +1,7 @@
 import { useGetOrderQuery } from '@/api/orderApi';
 import { SummaryLayout } from '@/app/Layout/Summary/Layout';
 import { Button } from '@/components/ui/button';
-import { castOrderItemToProductItem } from '@/lib/utils';
+import { castOrderItemToProductItem } from '@/utils/orderItemToCartItem';
 import type { FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 

@@ -13,7 +13,7 @@ export const Navbar: FC = () => {
 				className="text-4xl tracking-wider drop-shadow-md cursor-pointer select-none"
 				onClick={() => navigate('/')}
 			>
-				Super Café
+				My super shop
 			</span>
 		</div>
 	);
