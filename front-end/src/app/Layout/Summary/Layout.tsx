@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import useIsMobile from '@/hooks/useIsMobileHook';
 import { type FC, type ReactNode } from 'react';
 import { Summary } from './components/SummaryList';
 import type { CartItem } from '@/store/cart';
+import { cn } from '@/utils/cn';
 
 interface SummaryLayoutProps {
 	title: string;
@@ -23,9 +23,7 @@ export const SummaryLayout: FC<SummaryLayoutProps> = ({
 
 	return (
 		<div className="flex w-full flex-row justify-center">
-			<div
-				className={clsx('flex flex-col p-4 bg-neutral-800 rounded-md text-white', isMobile ? 'w-full mx-3' : 'w-1/3')}
-			>
+			<div className={cn('flex flex-col p-4 bg-neutral-800 rounded-md text-white', isMobile ? 'w-full mx-3' : 'w-1/3')}>
 				<h2 className="text-xl font-bold mb-4">{title}</h2>
 
 				{showSummary && <Summary editable={editable} items={items} />}

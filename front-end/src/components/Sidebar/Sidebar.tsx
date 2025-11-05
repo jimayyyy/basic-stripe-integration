@@ -2,13 +2,13 @@ import { selectCart } from '@/store/cart';
 import { useEffect, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DollarSignIcon, ShoppingCart, X } from 'lucide-react';
-import clsx from 'clsx';
 import { closeSidebar, isSidebarOpen } from '@/store/sidebar';
 import { Button } from '../ui/button';
 import { SidebarCard } from './components/SidebarCard';
 import { useNavigate } from 'react-router-dom';
 import { useCartHook } from '@/hooks/useCartHook';
 import { useFetchProductsQuery } from '@/api/productsApi';
+import { cn } from '@/utils/cn';
 
 export const Sidebar: FC = () => {
 	const cart = useSelector(selectCart);
@@ -43,14 +43,14 @@ export const Sidebar: FC = () => {
 	return (
 		<>
 			<div
-				className={clsx(
+				className={cn(
 					'fixed inset-0 bg-black z-40 transition-opacity duration-300',
 					isOpen ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none',
 				)}
 				onClick={() => onClose()}
 			/>
 			<div
-				className={clsx(
+				className={cn(
 					'fixed left-0 top-0 h-full bg-white z-50 shadow-2xl flex flex-col transform transition-transform duration-300',
 					isOpen ? 'translate-x-0' : '-translate-x-full',
 					'w-full md:w-[400px]',
