@@ -12,7 +12,7 @@ type ProductsResponse = Record<string, Omit<ProductItem, 'id'>>;
 
 export const productsApi = createApi({
 	reducerPath: 'productsApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
+	baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BACKEND_URL }),
 	endpoints: (builder) => ({
 		// fetch products
 		fetchProducts: builder.query<ProductsResponse, void>({
