@@ -3,10 +3,10 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Button } from '@/components/ui/button';
 import { useCreatePaymentIntentMutation } from '@/api/paymentApi';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useOrderHook } from '@/hooks/useOrderHook';
 import priceToDecimal from '@/utils/priceToDecimal';
 import { useCartHook } from '@/hooks/useCartHook';
 import { SummaryLayout } from '@/app/Layout/Summary/Layout';
+import { useOrderHook } from '@/hooks/useOrderHook';
 
 export const Payment: FC = () => {
 	const stripe = useStripe();
@@ -41,8 +41,8 @@ export const Payment: FC = () => {
 					}, 2000);
 				} else {
 					if (paymentResult?.paymentIntent.status === 'succeeded') {
-						setOrderId('');
 						resetCart();
+						setOrderId('');
 						navigate(`/confirmation/${id}`);
 					}
 				}
