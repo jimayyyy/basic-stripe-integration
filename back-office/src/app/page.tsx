@@ -1,12 +1,10 @@
 'use client';
-import { useProducts } from '@/hooks/useProduct';
+import { ProductTable } from './components/ProductTable';
 
 export default function Home() {
-	const { data: products, isLoading } = useProducts();
-
-	console.log('products :', products);
-
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">Hello world</div>
+		<div className="w-screen h-screen flex justify-center items-center bg-gray-50">
+			<ProductTable />
+		</div>
 	);
 }
