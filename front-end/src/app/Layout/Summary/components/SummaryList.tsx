@@ -6,7 +6,7 @@ import { MinusIcon, PlusIcon } from 'lucide-react';
 import { useCartHook } from '@/hooks/useCartHook';
 import useIsMobile from '@/hooks/useIsMobileHook';
 import { Button } from '@/components/ui/button';
-import { priceToDecimal } from '@/utils/priceToDecimal';
+import { priceToDecimal } from '@/lib/priceToDecimal';
 
 interface SummaryProps {
 	editable?: boolean;

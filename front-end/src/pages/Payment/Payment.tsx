@@ -3,7 +3,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Button } from '@/components/ui/button';
 import { useCreatePaymentIntentMutation } from '@/api/paymentApi';
 import { useNavigate, useParams } from 'react-router-dom';
-import { priceToDecimal } from '@/utils/priceToDecimal';
+import { priceToDecimal } from '@/lib/priceToDecimal';
 import { useCartHook } from '@/hooks/useCartHook';
 import { SummaryLayout } from '@/app/Layout/Summary/Layout';
 import { useOrderHook } from '@/hooks/useOrderHook';

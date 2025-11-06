@@ -8,7 +8,7 @@ import { SidebarCard } from './components/SidebarCard';
 import { useNavigate } from 'react-router-dom';
 import { useCartHook } from '@/hooks/useCartHook';
 import { useFetchProductsQuery } from '@/api/productsApi';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export const Sidebar: FC = () => {
 	const cart = useSelector(selectCart);

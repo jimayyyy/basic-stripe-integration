@@ -2,7 +2,7 @@ import useIsMobile from '@/hooks/useIsMobileHook';
 import { type FC, type ReactNode } from 'react';
 import { Summary } from './components/SummaryList';
 import type { CartItem } from '@/store/cart';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 interface SummaryLayoutProps {
 	title: string;
